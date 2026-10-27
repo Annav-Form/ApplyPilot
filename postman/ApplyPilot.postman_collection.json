@@ -1,0 +1,537 @@
+{
+  "info": {
+    "_postman_id": "applypilot-collection-v1",
+    "name": "ApplyPilot — Placement & Internship Tracker API",
+    "description": "Complete REST API collection for ApplyPilot: Student Authentication, Application Tracker with Tier/Difficulty classification, Nested OA/Interview Rounds, Live Dashboard Metrics, Reminders, and Preparation Playbooks.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0. Health Check",
+      "item": [
+        {
+          "name": "API Health & DB Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Response contains status ok', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.status).to.eql('ok');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Student",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    pm.environment.set('authToken', json.token);",
+                  "    pm.test('Token received and saved', function() {",
+                  "        pm.expect(json.token).to.be.a('string');",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul@college.edu\",\n  \"password\": \"Password123!\",\n  \"college\": \"IIT Delhi\",\n  \"targetRole\": \"Software Development Engineer (SDE)\",\n  \"graduationYear\": 2027\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login Student",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    pm.environment.set('authToken', json.token);",
+                  "    pm.test('Login successful & token saved', function() {",
+                  "        pm.expect(json.token).to.be.a('string');",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"rahul@college.edu\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Authenticated Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetRole\": \"Full-Stack Software Engineer\",\n  \"college\": \"IIT Delhi - Dept of CSE\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Dashboard & Reminders",
+      "item": [
+        {
+          "name": "Get Dashboard Statistics & Deadlines",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dashboard", "stats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Applications",
+      "item": [
+        {
+          "name": "Create Application (Google - Excellent & Hard to Crack)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    pm.environment.set('applicationId', json.application._id);",
+                  "    pm.test('Application created with ID', function() {",
+                  "        pm.expect(json.application._id).to.be.a('string');",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company\": \"Google\",\n  \"role\": \"Software Engineering Intern\",\n  \"tier\": \"Excellent\",\n  \"difficulty\": \"Hard to Crack\",\n  \"status\": \"Applied\",\n  \"priority\": \"High\",\n  \"location\": \"Bangalore, India\",\n  \"source\": \"Referral\",\n  \"deadline\": \"2026-11-15T18:30:00.000Z\",\n  \"salary\": \"₹1,25,000 / month\",\n  \"jobUrl\": \"https://careers.google.com\",\n  \"description\": \"Distributed Systems, Algorithms & Cloud Infrastructure.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/applications",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications"]
+            }
+          }
+        },
+        {
+          "name": "List Applications (with Filters)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/applications?tier=Excellent&difficulty=Hard to Crack",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications"],
+              "query": [
+                { "key": "tier", "value": "Excellent" },
+                { "key": "difficulty", "value": "Hard to Crack" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Application by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/{{applicationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "{{applicationId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Application",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"priority\": \"High\",\n  \"additionalNotes\": \"Resume shortlisted. Recruiter scheduled round 1.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/{{applicationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "{{applicationId}}"]
+            }
+          }
+        },
+        {
+          "name": "Quick Status Update",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Online Assessment\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/{{applicationId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "{{applicationId}}", "status"]
+            }
+          }
+        },
+        {
+          "name": "Delete Application",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/{{applicationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "{{applicationId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. OA & Interview Rounds",
+      "item": [
+        {
+          "name": "Add Round (Online Assessment / Interview)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.rounds && json.rounds.length > 0) {",
+                  "        pm.environment.set('roundId', json.rounds[json.rounds.length - 1]._id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roundType\": \"Online Assessment\",\n  \"name\": \"Google Online Challenge (GOC)\",\n  \"scheduledAt\": \"2026-11-05T14:00:00.000Z\",\n  \"status\": \"Upcoming\",\n  \"durationMinutes\": 60,\n  \"meetingLink\": \"https://coding.google.com/test/demo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/{{applicationId}}/rounds",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "{{applicationId}}", "rounds"]
+            }
+          }
+        },
+        {
+          "name": "Update Round (Record Outcome)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Completed\",\n  \"outcome\": \"Cleared\",\n  \"notes\": \"Solved 2/2 algorithm problems. Expected to hear back in 48 hours.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/{{applicationId}}/rounds/{{roundId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "{{applicationId}}", "rounds", "{{roundId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get All Upcoming Rounds Across Jobs",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/rounds/upcoming",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "rounds", "upcoming"]
+            }
+          }
+        },
+        {
+          "name": "Delete Round",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/applications/{{applicationId}}/rounds/{{roundId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "applications", "{{applicationId}}", "rounds", "{{roundId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Preparation Playbooks",
+      "item": [
+        {
+          "name": "Get Playbook Items & Group Stats",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/playbooks?group=Excellent",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playbooks"],
+              "query": [
+                { "key": "group", "value": "Excellent" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Preparation Topic",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    var json = pm.response.json();",
+                  "    pm.environment.set('playbookId', json.item._id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"Graph BFS, DFS, Dijkstra & Topological Sort\",\n  \"targetGroups\": [\"Excellent\", \"Hard to Crack\"],\n  \"priority\": \"High\",\n  \"estimatedHours\": 12,\n  \"notes\": \"LeetCode 200, 207, 743. Focus on cycle detection in directed graphs.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/playbooks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playbooks"]
+            }
+          }
+        },
+        {
+          "name": "Toggle Topic Completion",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/playbooks/{{playbookId}}/toggle",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playbooks", "{{playbookId}}", "toggle"]
+            }
+          }
+        },
+        {
+          "name": "Update Preparation Topic",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Added LeetCode 1334 and Bellman-Ford reference.\",\n  \"estimatedHours\": 14\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/playbooks/{{playbookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playbooks", "{{playbookId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Preparation Topic",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/playbooks/{{playbookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playbooks", "{{playbookId}}"]
+            }
+          }
+        },
+        {
+          "name": "Seed Starter Playbook Curriculum",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/playbooks/seed-starter",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "playbooks", "seed-starter"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Demo Seeding",
+      "item": [
+        {
+          "name": "Seed Demo Dataset",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"force\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/seed",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "demo", "seed"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
