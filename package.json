@@ -1,0 +1,38 @@
+{
+  "name": "applypilot",
+  "version": "1.0.0",
+  "description": "ApplyPilot - Placement & Internship Tracker for College Students",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "node --watch server/index.js",
+    "client:dev": "npm --prefix client run dev",
+    "build": "npm --prefix client install && npm --prefix client run build",
+    "start": "node server/index.js",
+    "test": "node tests/run-tests.js",
+    "install-all": "npm install && npm --prefix client install"
+  },
+  "keywords": [
+    "internship-tracker",
+    "placement-tracker",
+    "student-productivity",
+    "job-application-tracker",
+    "mern"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.23.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "mongodb-memory-server": "^10.1.4",
+    "supertest": "^7.1.1"
+  }
+}
