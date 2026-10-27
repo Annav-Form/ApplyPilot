@@ -1,3 +1,5 @@
+Video : https://drive.google.com/file/d/1XqQMjLalV4C2PzLYKvIXv1H9UVqmKRyH/view?usp=sharing
+
 # ApplyPilot — Placement & Internship Tracker
 
 > A modern, full-stack placement and internship tracking platform built for college students to manage job applications, schedule OA and interview rounds, stay ahead of deadlines, and organize company preparation playbooks.
