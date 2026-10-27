@@ -3,7 +3,18 @@ import mongoose from 'mongoose';
 let isConnected = false;
 
 export const connectDB = async () => {
-  const mongoUri = process.env.MONGODB_URI;
+  let mongoUri = process.env.MONGODB_URI;
+
+  if (!mongoUri && (process.env.USE_MEMORY_DB === 'true' || process.env.NODE_ENV === 'test')) {
+    try {
+      const { MongoMemoryServer } = await import('mongodb-memory-server');
+      const mongod = await MongoMemoryServer.create();
+      mongoUri = mongod.getUri();
+      console.log('⚡ [ApplyPilot DB]: Running with local embedded MongoDB engine for testing/demo.');
+    } catch (e) {
+      console.warn('Could not launch embedded memory db:', e.message);
+    }
+  }
 
   if (!mongoUri) {
     console.warn(
