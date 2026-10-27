@@ -163,7 +163,7 @@ export default function DashboardPage() {
           onClick={() => navigate('/applications')}
           style={{ cursor: 'pointer' }}
         >
-          <div className="stat-icon-wrapper" style={{ background: 'rgba(99, 102, 241, 0.15)', color: '#818cf8' }}>
+          <div className="stat-icon-wrapper" style={{ background: 'rgba(197, 155, 39, 0.12)', color: 'var(--primary)' }}>
             <Briefcase size={20} />
           </div>
           <div className="stat-value">{stats.totalApplications}</div>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
           onClick={() => navigate('/applications?status=Applied')}
           style={{ cursor: 'pointer' }}
         >
-          <div className="stat-icon-wrapper" style={{ background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa' }}>
+          <div className="stat-icon-wrapper" style={{ background: 'rgba(2, 132, 199, 0.1)', color: '#0284c7' }}>
             <TrendingUp size={20} />
           </div>
           <div className="stat-value">{stats.activeApplications}</div>
@@ -191,7 +191,7 @@ export default function DashboardPage() {
           onClick={() => navigate('/reminders')}
           style={{ cursor: 'pointer' }}
         >
-          <div className="stat-icon-wrapper" style={{ background: 'rgba(168, 85, 247, 0.15)', color: '#c084fc' }}>
+          <div className="stat-icon-wrapper" style={{ background: 'rgba(126, 34, 206, 0.1)', color: '#7e22ce' }}>
             <Calendar size={20} />
           </div>
           <div className="stat-value">{stats.totalScheduledRounds}</div>
@@ -205,10 +205,10 @@ export default function DashboardPage() {
           onClick={() => navigate('/applications?status=Offer')}
           style={{ cursor: 'pointer' }}
         >
-          <div className="stat-icon-wrapper" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399' }}>
+          <div className="stat-icon-wrapper" style={{ background: 'rgba(22, 163, 74, 0.1)', color: '#15803d' }}>
             <Trophy size={20} />
           </div>
-          <div className="stat-value" style={{ color: '#34d399' }}>{stats.offersReceived}</div>
+          <div className="stat-value" style={{ color: '#15803d' }}>{stats.offersReceived}</div>
           <div className="stat-label">Offers Received</div>
           <div className="stat-meta">Placement conversions 🎉</div>
         </div>
@@ -219,10 +219,10 @@ export default function DashboardPage() {
           onClick={() => navigate('/reminders')}
           style={{ cursor: 'pointer' }}
         >
-          <div className="stat-icon-wrapper" style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#f87171' }}>
+          <div className="stat-icon-wrapper" style={{ background: 'rgba(220, 38, 38, 0.1)', color: '#b91c1c' }}>
             <AlertTriangle size={20} />
           </div>
-          <div className="stat-value" style={{ color: stats.overdueCount > 0 ? '#f87171' : 'var(--text-primary)' }}>
+          <div className="stat-value" style={{ color: stats.overdueCount > 0 ? '#b91c1c' : 'var(--text-primary)' }}>
             {stats.overdueCount}
           </div>
           <div className="stat-label">Overdue Events</div>
@@ -235,7 +235,7 @@ export default function DashboardPage() {
           onClick={() => navigate('/reminders')}
           style={{ cursor: 'pointer' }}
         >
-          <div className="stat-icon-wrapper" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#2dd4bf' }}>
+          <div className="stat-icon-wrapper" style={{ background: 'rgba(197, 155, 39, 0.12)', color: 'var(--primary)' }}>
             <Clock size={20} />
           </div>
           <div className="stat-value">{stats.upcomingCount}</div>
@@ -251,7 +251,7 @@ export default function DashboardPage() {
           <div className="card-header">
             <div>
               <h3 className="card-title">
-                <TrendingUp size={18} color="#818cf8" />
+                <TrendingUp size={18} color="var(--primary)" />
                 <span>Application Pipeline Breakdown</span>
               </h3>
               <p className="card-subtitle">Real-time status counts across all tracked jobs</p>
@@ -303,7 +303,7 @@ export default function DashboardPage() {
           <div className="card-header">
             <div>
               <h3 className="card-title">
-                <Sparkles size={18} color="#2dd4bf" />
+                <Sparkles size={18} color="var(--primary)" />
                 <span>Company Classification Matrix</span>
               </h3>
               <p className="card-subtitle">Independent Tier and Difficulty metrics</p>
@@ -376,17 +376,17 @@ export default function DashboardPage() {
             {/* Playbook Progress Widget */}
             <div
               style={{
-                backgroundColor: 'rgba(99, 102, 241, 0.08)',
+                backgroundColor: 'rgba(197, 155, 39, 0.08)',
                 padding: '12px 16px',
                 borderRadius: 'var(--radius-md)',
-                border: '1px solid rgba(99, 102, 241, 0.2)',
+                border: '1px solid rgba(197, 155, 39, 0.25)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
               }}
             >
               <div>
-                <div style={{ fontSize: '0.825rem', fontWeight: 700, color: '#c7d2fe' }}>
+                <div style={{ fontSize: '0.825rem', fontWeight: 700, color: 'var(--text-primary)' }}>
                   Preparation Playbook Progress
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: 2 }}>
@@ -409,7 +409,7 @@ export default function DashboardPage() {
           <div className="card-header">
             <div>
               <h3 className="card-title">
-                <Clock size={18} color="#38bdf8" />
+                <Clock size={18} color="var(--primary)" />
                 <span>Upcoming Deadlines & Scheduled Rounds</span>
               </h3>
               <p className="card-subtitle">Next events requiring your preparation</p>
@@ -491,7 +491,7 @@ export default function DashboardPage() {
           <div className="card-header">
             <div>
               <h3 className="card-title">
-                <Briefcase size={18} color="#818cf8" />
+                <Briefcase size={18} color="var(--primary)" />
                 <span>Recent Applications</span>
               </h3>
               <p className="card-subtitle">Latest tracked companies & status updates</p>

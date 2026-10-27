@@ -338,7 +338,7 @@ export default function ApplicationsPage() {
                       <div>
                         <div
                           className="table-title-cell"
-                          style={{ cursor: 'pointer', color: '#c7d2fe' }}
+                          style={{ cursor: 'pointer', color: 'var(--text-primary)' }}
                           onClick={() => navigate(`/applications/${app._id}`)}
                         >
                           {app.company}

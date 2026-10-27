@@ -100,7 +100,8 @@ export default function RegisterPage() {
                 width: 44,
                 height: 44,
                 borderRadius: 'var(--radius-lg)',
-                background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+                background: 'linear-gradient(135deg, #d4af37 0%, #aa7c11 100%)',
+                boxShadow: '0 4px 16px rgba(197, 155, 39, 0.35)',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -254,7 +255,7 @@ export default function RegisterPage() {
             Already have an account?{' '}
             <Link
               to="/login"
-              style={{ color: '#818cf8', fontWeight: 600, textDecoration: 'none' }}
+              style={{ color: 'var(--primary)', fontWeight: 700, textDecoration: 'none' }}
             >
               Sign in
             </Link>

@@ -116,8 +116,8 @@ export default function Sidebar({ isOpen, onClose }) {
             style={{ width: '100%', textAlign: 'left', background: 'transparent', border: 'none' }}
             onClick={() => setShowDemoModal(true)}
           >
-            <Sparkles size={18} color="#818cf8" />
-            <span style={{ color: '#c7d2fe' }}>Load Demo Data</span>
+            <Sparkles size={18} color="var(--primary)" />
+            <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>Load Demo Data</span>
           </button>
         </nav>
 
@@ -131,6 +131,7 @@ export default function Sidebar({ isOpen, onClose }) {
                 padding: '8px 10px',
                 borderRadius: 'var(--radius-md)',
                 backgroundColor: 'var(--bg-tertiary)',
+                border: '1px solid var(--border-subtle)',
               }}
             >
               <div
@@ -138,13 +139,14 @@ export default function Sidebar({ isOpen, onClose }) {
                   width: 34,
                   height: 34,
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #6366f1 0%, #14b8a6 100%)',
+                  background: 'linear-gradient(135deg, #d4af37 0%, #b8860b 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontWeight: 700,
                   fontSize: '0.85rem',
                   color: '#fff',
+                  boxShadow: '0 2px 6px rgba(197, 155, 39, 0.3)',
                   flexShrink: 0,
                 }}
               >

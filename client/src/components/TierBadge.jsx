@@ -10,9 +10,9 @@ export default function TierBadge({ tier }) {
       title={`Company Tier: ${tier}`}
     >
       {isExcellent ? (
-        <Sparkles size={12} color="#a5b4fc" style={{ flexShrink: 0 }} />
+        <Sparkles size={12} color="#b45309" style={{ flexShrink: 0 }} />
       ) : (
-        <Building2 size={12} color="#38bdf8" style={{ flexShrink: 0 }} />
+        <Building2 size={12} color="#0284c7" style={{ flexShrink: 0 }} />
       )}
       <span>{tier || 'Decent'}</span>
     </span>

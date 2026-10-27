@@ -143,7 +143,7 @@ export default function ApplicationFormModal({
             marginBottom: 16,
           }}
         >
-          <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--accent-teal)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--primary)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Company Classification (Independent Dimensions)
           </div>
           <div className="form-row">

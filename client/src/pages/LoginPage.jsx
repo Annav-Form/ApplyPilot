@@ -75,12 +75,12 @@ export default function LoginPage() {
                 width: 48,
                 height: 48,
                 borderRadius: 'var(--radius-lg)',
-                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                background: 'linear-gradient(135deg, #d4af37 0%, #aa7c11 100%)',
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#fff',
-                boxShadow: '0 0 20px rgba(99, 102, 241, 0.4)',
+                boxShadow: '0 4px 16px rgba(197, 155, 39, 0.35)',
                 marginBottom: 16,
               }}
             >
@@ -171,7 +171,7 @@ export default function LoginPage() {
               style={{ width: '100%', fontSize: '0.8rem' }}
               onClick={handleFillDemoStudent}
             >
-              <Sparkles size={14} color="#818cf8" />
+              <Sparkles size={14} color="var(--primary)" />
               Fill Quick Demo Student Credentials
             </button>
           </div>
@@ -189,7 +189,7 @@ export default function LoginPage() {
             Don't have an account?{' '}
             <Link
               to="/register"
-              style={{ color: '#818cf8', fontWeight: 600, textDecoration: 'none' }}
+              style={{ color: 'var(--primary)', fontWeight: 700, textDecoration: 'none' }}
             >
               Register here
             </Link>
